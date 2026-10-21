@@ -1,4 +1,4 @@
-> 译自 [telvax/telvax@7f400a6](https://github.com/telvax/telvax/commit/7f400a605113ccec612c6418625d8607023adeef)（`docs/guide/tour.md`）。
+> 译自 [telvax/telvax@1c88355](https://github.com/telvax/telvax/commit/1c883558b98a024149553d2ba5265f075fc553be)（`docs/guide/tour.md`）。
 
 # Telvax 导览
 
@@ -442,6 +442,7 @@ fn lookup(key: Text) -> Text?:
 `jobs_total{status="done"}`，`by` 是第三个参数。名字由字母、数字、`_` 和 `:` 组成，一个计数器最多有
 1,000 组标签（所以标签不应该由用户发送的内容生成），`--process-time-header` 会给每个响应添加
 `x-process-time-ms`。
+会上下变化的数字，例如缓存中的条目数，就是 gauge：`std.metrics.set("cache_size", cache.len())` 每次都会替换它的值，服务器会用 `# TYPE cache_size gauge` 列出它。一个名字要么是计数器，要么是 gauge，不能两者都是。
 `--error-format detail` 把服务器产生的错误写成 `{"detail": ...}`，把不符合其类型的请求体写成 `422`，
 与 FastAPI 一致；默认是 `{"error": ...}` 和 `400`。程序用 `Response` 构造的响应永远不会被改动。
 运行时失败的函数会以 `500` 和 `Internal server error` 作答；原因连同请求 id 写入日志。
