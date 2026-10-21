@@ -1,0 +1,75 @@
+---
+title: Telvax
+description: "译自 telvax/telvax@8c48c8b（site/src/content/docs/index.mdx）。一门面向数据、机器学习流水线和 AI 服务的静态类型编译型语言。"
+template: splash
+hero:
+  tagline: 一门面向数据处理、机器学习流水线和 AI 服务的静态类型编译型语言。懂 Python 的人读起来很轻松。早期 alpha。
+  actions:
+    - text: Telvax 导览
+      link: guide/tour/
+      icon: right-arrow
+    - text: 用例
+      link: guide/use-cases/
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/telvax/telvax
+      variant: minimal
+      icon: external
+---
+
+{/* 译自 telvax/telvax@8c48c8b3b9b968f5b1f1cd83926bf80c84f84ab1（site/src/content/docs/index.mdx）。 */}
+
+```telvax
+import std.ai.embeddings.OllamaEmbedder
+import std.http.Status
+
+let embedder = OllamaEmbedder.new("nomic-embed-text")
+
+type QueryPayload:
+    query: Text
+    top_k: i32
+
+fn embed(text: Text) -> Tensor[f32, 768]:
+    text |> std.text.clean_whitespace() |> std.text.truncate(512) |> embedder.embed()
+
+@endpoint(POST, "/v1/embed")
+fn handle(payload: QueryPayload) -> Result[Tensor[f32, 768], Status]:
+    if payload.query.is_empty():
+        return Err(Status.BadRequest("empty query"))
+    Ok(embed(payload.query))
+```
+
+## 文档
+
+| | |
+|---|---|
+| [教程](guide/tour/) | 从这里开始。对这门语言的导览，从 `fn` 和 `let` 到张量、表和 `@endpoint`。 |
+| [库参考](reference/std/) | 标准库的每个函数、类型和方法及其签名。 |
+| [命令行](reference/cli/) | 每个 `telvax` 命令及其选项：`run`、`test`、`fmt`、`serve`、`build` 等。 |
+| [操作指南：用例](guide/use-cases/) | Telvax 适用的每一类场景各有一个程序，并附有运行它的命令。 |
+| [语言稳定性](guide/stability/) | 各个版本之间保持不变的内容：版次和已冻结的语法。 |
+| [新特性](whats-new/) | 每个版本的变化。 |
+| [关于](about/contributing/) | 报告问题、参与贡献、安全、行为准则和许可证。 |
+
+## 安装
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/telvax/telvax/main/scripts/install.sh | sh
+```
+
+安装完成后不会打开任何东西：Telvax 是命令行工具，没有窗口，也不是应用。脚本会把
+`telvax` 和 `tvpm` 放到 `~/.telvax/bin`，并且在 macOS 和 Linux 上不会修改你的 `PATH`，所以请把该文件夹加进去并检查：
+
+```sh
+export PATH="$HOME/.telvax/bin:$PATH"
+telvax --version
+```
+
+如果没有适用于你的系统的二进制文件，脚本会从源码构建（需要 [Rust](https://rustup.rs)）。
+在 Windows 上，请使用 PowerShell：
+
+```powershell
+irm https://raw.githubusercontent.com/telvax/telvax/main/scripts/install.ps1 | iex
+```
+
+然后阅读[教程](guide/tour/)。
