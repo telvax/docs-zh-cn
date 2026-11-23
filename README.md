@@ -23,6 +23,7 @@ Translation of the documentation in [telvax/telvax](https://github.com/telvax/te
 | `docs/guide/use-cases.md` | translated from `telvax/telvax@664d389` |
 | `docs/guide/stability.md` | translated from `telvax/telvax@0524f5d` |
 | `docs/reference/cli.md` | translated from `telvax/telvax@4c5a64d` |
+| `CONTRIBUTING.md` of telvax/telvax | translated in `docs/about/contributing.md` from `telvax/telvax@91dedc3` |
 | `README.md` of telvax/telvax | translated in `docs/README.md` from `telvax/telvax@2253a54` |
 | `site/src/content/docs/index.mdx` of telvax/telvax | translated in `docs/site/index.mdx` from `telvax/telvax@1b9bb66`; it is the home page of this language on the documentation site |
 
